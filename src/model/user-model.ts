@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 export type UserResponse = {
     name: string;
     nim: string;
+    token?: string;
 };
 
 export type RegisterUser = {
@@ -16,6 +17,11 @@ export type RegisterUser = {
 export type ResponseRegisterUser = {
     name: string;
     nim: string;
+};
+
+export type LoginUserRequest = {
+    nim: string;
+    password: string;
 };
 
 export function toUserResponse(user: User): UserResponse {

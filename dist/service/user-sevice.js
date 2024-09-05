@@ -19,6 +19,7 @@ const user_model_1 = require("../model/user-model");
 const user_validation_1 = require("../validation/user-validation");
 const validation_1 = require("../validation/validation");
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const uuid_1 = require("uuid");
 class UserService {
     static register(request) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -37,6 +38,76 @@ class UserService {
                 data: registerRequest
             });
             return (0, user_model_1.toUserResponse)(user);
+        });
+    }
+    ;
+    static login(request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const loginRequest = validation_1.Validation.validate(user_validation_1.UserValidate.LOGIN, request);
+            let user = yield database_1.prismaClient.user.findFirst({
+                where: {
+                    nim: loginRequest.nim
+                }
+            });
+            if (!user) {
+                throw new response_error_1.ResponseError(400, "User or password is wrong");
+            }
+            const isPasswordValid = yield bcrypt_1.default.compare(loginRequest.password, user.password);
+            if (!isPasswordValid) {
+                throw new response_error_1.ResponseError(400, "User or password is wrong");
+            }
+            user = yield database_1.prismaClient.user.update({
+                where: {
+                    nim: user.nim
+                },
+                data: {
+                    token: (0, uuid_1.v4)()
+                }
+            });
+            const response = (0, user_model_1.toUserResponse)(user);
+            response.token = user.token;
+            return response;
+        });
+    }
+    ;
+    static get(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return (0, user_model_1.toUserResponse)(user);
+        });
+    }
+    static update(user, request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateRequest = validation_1.Validation.validate(user_validation_1.UserValidate.UPDATE, request);
+            if (updateRequest.nim) {
+                user.nim = updateRequest.nim;
+            }
+            ;
+            if (updateRequest.password) {
+                user.password = yield bcrypt_1.default.hash(updateRequest.password, 10);
+            }
+            ;
+            if (updateRequest.name) {
+                user.name = updateRequest.name;
+            }
+            ;
+            if (updateRequest.date) {
+                user.date = updateRequest.date;
+            }
+            ;
+            if (updateRequest.gender) {
+                user.gender = updateRequest.gender;
+            }
+            ;
+            const response = yield database_1.prismaClient.user.update({
+                where: {
+                    nim: user.nim
+                },
+                data: user
+            });
+            if (!response) {
+                throw new response_error_1.ResponseError(401, "Unauthorized");
+            }
+            return (0, user_model_1.toUserResponse)(response);
         });
     }
 }

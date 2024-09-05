@@ -8,4 +8,4 @@ const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("../controller/user-controller");
 exports.publicRouter = express_1.default.Router();
 exports.publicRouter.post("/api/users", user_controller_1.UserController.register);
-// publicRouter.post("/api/users/login", UserController.login);
+exports.publicRouter.post("/api/users/login", user_controller_1.UserController.login);

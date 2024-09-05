@@ -14,10 +14,10 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
   name     String  @db.VarChar(100)
-  nim      String  @db.VarChar(12)
+  nim      String  @id @db.VarChar(12)
   password String  @db.VarChar(255)
   date     String  @db.VarChar(255)
   gender   String  @db.VarChar(10)
+  token    String? @db.VarChar(100)
 }

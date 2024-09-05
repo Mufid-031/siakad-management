@@ -13,11 +13,12 @@ export class UserTest {
     }
 
     static async create() {
+        const hashedPassword = await bcrypt.hash("test", 10);
         await prismaClient.user.create({
             data: {
                 name: "test",
                 nim: "123456789012",
-                password: await bcrypt.hash("test", 10),
+                password: hashedPassword,
                 date: "test",
                 gender: "test"
             }
@@ -27,7 +28,7 @@ export class UserTest {
     static async get(): Promise<User> {
         const user = await prismaClient.user.findFirst({
             where: {
-                nim: "123"
+                nim: "123456789012"
             }
         });
 

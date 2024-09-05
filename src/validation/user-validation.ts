@@ -9,4 +9,18 @@ export class UserValidate {
         date: z.string().min(1).max(100),
         gender: z.string().min(1).max(100),
     });
+
+    static readonly LOGIN: ZodType = z.object({
+        nim: z.string().min(12).max(12),
+        password: z.string().min(1).max(100),
+    });
+
+    static readonly UPDATE: ZodType = z.object({
+        name: z.string().min(1).max(100).optional(),
+        nim: z.string().min(12).max(12).optional(),
+        password: z.string().min(1).max(100).optional(),
+        date: z.string().min(1).max(100).optional(),
+        gender: z.string().min(1).max(100).optional(),
+    });
+
 }
