@@ -110,5 +110,19 @@ class UserService {
             return (0, user_model_1.toUserResponse)(response);
         });
     }
+    ;
+    static logout(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield database_1.prismaClient.user.update({
+                where: {
+                    nim: user.nim
+                },
+                data: {
+                    token: null
+                }
+            });
+            return (0, user_model_1.toUserResponse)(response);
+        });
+    }
 }
 exports.UserService = UserService;

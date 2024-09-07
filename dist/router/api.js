@@ -6,10 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.apiRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const auth_middleware_1 = require("../middleware/auth-middleware");
-const user_controller_1 = require("../controller/user-controller");
+const student_controller_1 = require("../controller/student-controller");
 exports.apiRouter = express_1.default.Router();
 exports.apiRouter.use(auth_middleware_1.authMiddleware);
 // User API
-exports.apiRouter.get("/api/users/current", user_controller_1.UserController.get);
-exports.apiRouter.patch("/api/users/current", user_controller_1.UserController.update);
-// apiRouter.patch("/api/users/current", UserController.logout)
+exports.apiRouter.get("/api/students", student_controller_1.StudentController.getStudents);
+exports.apiRouter.patch("/api/students", student_controller_1.StudentController.update);
+exports.apiRouter.patch("/api/students/logout", student_controller_1.StudentController.logout);

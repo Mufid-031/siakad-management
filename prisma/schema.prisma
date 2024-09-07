@@ -1,9 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,10 +9,71 @@ datasource db {
 }
 
 model User {
-  name     String  @db.VarChar(100)
-  nim      String  @id @db.VarChar(12)
-  password String  @db.VarChar(255)
-  date     String  @db.VarChar(255)
-  gender   String  @db.VarChar(10)
-  token    String? @db.VarChar(100)
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role
+  student   Student?
+  teacher   Teacher?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  token     String?
+}
+
+model Student {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int       @unique
+  nim       String    @unique
+  enrollments Enrollment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Teacher {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int       @unique
+  nip       String    @unique
+  courses   Course[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Course {
+  id          Int           @id @default(autoincrement())
+  name        String
+  code        String        @unique
+  teacher     Teacher       @relation(fields: [teacherId], references: [id])
+  teacherId   Int
+  enrollments Enrollment[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Enrollment {
+  id        Int      @id @default(autoincrement())
+  student   Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  Int
+  grade     Grade?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Grade {
+  id            Int        @id @default(autoincrement())
+  enrollment    Enrollment @relation(fields: [enrollmentId], references: [id])
+  enrollmentId  Int        @unique
+  grade         Float
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
 }

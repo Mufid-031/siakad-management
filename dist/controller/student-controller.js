@@ -9,45 +9,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_sevice_1 = require("../service/user-sevice");
-class UserController {
+exports.StudentController = void 0;
+const student_service_1 = require("../service/student-service");
+class StudentController {
+    static getStudents(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = req.body;
+                const response = yield student_service_1.StudentService.getStudents(request);
+                res.status(200).json({
+                    status: 200,
+                    massage: "success get all student",
+                    data: response,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    ;
     static register(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = yield user_sevice_1.UserService.register(request);
-                res.status(200).json({
-                    data: response
-                });
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    }
-    ;
-    static login(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const request = req.body;
-                const response = yield user_sevice_1.UserService.login(request);
-                res.status(200).json({
-                    data: response
-                });
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    }
-    ;
-    static get(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield user_sevice_1.UserService.get(req.user);
-                res.status(200).json({
-                    data: response
+                const response = yield student_service_1.StudentService.register(request);
+                res.status(201).json({
+                    status: 201,
+                    massage: "success register student",
+                    data: response,
                 });
             }
             catch (error) {
@@ -60,9 +50,28 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = yield user_sevice_1.UserService.update(req.user, request);
+                const response = yield student_service_1.StudentService.update(req.user, request);
+                res.status(201).json({
+                    status: 201,
+                    massage: "success update student",
+                    data: response,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    ;
+    static login(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = req.body;
+                const response = yield student_service_1.StudentService.login(request);
                 res.status(200).json({
-                    data: response
+                    status: 200,
+                    massage: "success login student",
+                    data: response,
                 });
             }
             catch (error) {
@@ -74,9 +83,11 @@ class UserController {
     static logout(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield user_sevice_1.UserService.logout(req.user);
+                const response = yield student_service_1.StudentService.logout(req.user);
                 res.status(200).json({
-                    data: response
+                    status: 200,
+                    massage: "success logout student",
+                    data: response,
                 });
             }
             catch (error) {
@@ -86,4 +97,4 @@ class UserController {
     }
     ;
 }
-exports.UserController = UserController;
+exports.StudentController = StudentController;
