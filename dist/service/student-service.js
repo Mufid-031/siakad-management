@@ -71,14 +71,17 @@ class StudentService {
             }
             ;
             if (updateRequest.password) {
-                user.password = yield bcrypt_1.default.hash(updateRequest.password, 10);
+                updateRequest.password = yield bcrypt_1.default.hash(updateRequest.password, 10);
             }
             ;
             const response = yield database_1.prismaClient.user.update({
                 where: {
                     id: user.id
                 },
-                data: updateRequest
+                data: {
+                    email: updateRequest.email,
+                    password: updateRequest.password
+                }
             });
             return (0, student_model_1.toStudentResponse)(response);
         });
@@ -128,6 +131,26 @@ class StudentService {
                 }
             });
             return (0, student_model_1.toStudentResponse)(response);
+        });
+    }
+    ;
+    static getStudent(user, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const student = yield database_1.prismaClient.student.findUnique({
+                where: {
+                    userId: Number(id)
+                },
+                include: {
+                    user: true,
+                    enrollments: true
+                }
+            });
+            if (!student) {
+                throw new response_error_1.ResponseError(404, "Student not found");
+            }
+            ;
+            const response = (0, student_model_1.toStudentResponse)(student);
+            return response;
         });
     }
     ;

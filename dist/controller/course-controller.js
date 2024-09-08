@@ -9,16 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const user_sevice_1 = require("../service/user-sevice");
-class UserController {
-    static register(req, res, next) {
+exports.CourseController = void 0;
+const course_service_1 = require("../service/course-service");
+class CourseController {
+    static getCourses(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = yield user_sevice_1.UserService.register(request);
+                const response = yield course_service_1.CourseService.getCourses(request);
                 res.status(200).json({
-                    data: response
+                    status: 200,
+                    massage: "success get all course",
+                    data: response,
                 });
             }
             catch (error) {
@@ -27,13 +29,15 @@ class UserController {
         });
     }
     ;
-    static login(req, res, next) {
+    static createCourse(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = yield user_sevice_1.UserService.login(request);
-                res.status(200).json({
-                    data: response
+                const response = yield course_service_1.CourseService.createCourse(request);
+                res.status(201).json({
+                    status: 201,
+                    massage: "success create course",
+                    data: response,
                 });
             }
             catch (error) {
@@ -42,27 +46,15 @@ class UserController {
         });
     }
     ;
-    static get(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const response = yield user_sevice_1.UserService.get(req.user);
-                res.status(200).json({
-                    data: response
-                });
-            }
-            catch (error) {
-                next(error);
-            }
-        });
-    }
-    ;
-    static update(req, res, next) {
+    static updateCourse(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = yield user_sevice_1.UserService.update(req.user, request);
-                res.status(200).json({
-                    data: response
+                const response = yield course_service_1.CourseService.updateCourse(req.course, request);
+                res.status(201).json({
+                    status: 201,
+                    massage: "success update course",
+                    data: response,
                 });
             }
             catch (error) {
@@ -71,12 +63,32 @@ class UserController {
         });
     }
     ;
-    static logout(req, res, next) {
+    static deleteCourse(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield user_sevice_1.UserService.logout(req.user);
+                const request = req.body;
+                const response = yield course_service_1.CourseService.deleteCourse(req.course, request);
+                res.status(201).json({
+                    status: 201,
+                    massage: "success delete course",
+                    data: response,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    ;
+    static getCourse(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = req.body;
+                const response = yield course_service_1.CourseService.getCourse(req.course, request);
                 res.status(200).json({
-                    data: response
+                    status: 200,
+                    massage: "success get course",
+                    data: response,
                 });
             }
             catch (error) {
@@ -86,4 +98,5 @@ class UserController {
     }
     ;
 }
-exports.UserController = UserController;
+exports.CourseController = CourseController;
+;

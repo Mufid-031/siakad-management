@@ -22,3 +22,10 @@ StudentValidate.LOGIN = zod_1.z.object({
     nim: zod_1.z.string().min(1).max(12),
     password: zod_1.z.string().min(1).max(100),
 });
+StudentValidate.GET = zod_1.z.object({
+    id: zod_1.z.number().min(1).optional(),
+    name: zod_1.z.string().min(1).max(100).optional(),
+    email: zod_1.z.string().min(1).max(100).optional(),
+    password: zod_1.z.string().min(1).max(100).optional(),
+    nim: zod_1.z.string().min(1).max(12).optional(),
+});

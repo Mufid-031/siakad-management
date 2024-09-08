@@ -7,8 +7,10 @@ export class StudentController {
 
     static async getStudents(req: Request, res: Response, next: NextFunction) {
         try {
+            const api_key = req.headers['x-api-token'];
             const request: StudentRequest = req.body as StudentRequest;
             const response = await StudentService.getStudents(request);
+            console.log(api_key);
 
             res.status(200).json({
                 status: 200,
@@ -79,5 +81,20 @@ export class StudentController {
             next(error);
         }
     };
+
+    static async getStudent(req: UserRequest, res: Response, next: NextFunction) {
+        try {
+            const request: StudentRequest = req.params as StudentRequest;
+            const response = await StudentService.getStudent(req.user!, request.id as number);
+
+            res.status(200).json({
+                status: 200,
+                massage: "success get student",
+                data: response,
+            })
+        } catch (error) {
+            next(error);
+        }
+    }
 
 }

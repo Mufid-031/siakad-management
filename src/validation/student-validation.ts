@@ -22,4 +22,12 @@ export class StudentValidate {
         password: z.string().min(1).max(100),
     });
 
+    static readonly GET: ZodType = z.object({
+        id: z.number().min(1).optional(),
+        name: z.string().min(1).max(100).optional(),
+        email: z.string().min(1).max(100).optional(),
+        password: z.string().min(1).max(100).optional(),
+        nim: z.string().min(1).max(12).optional(),
+    });
+
 }

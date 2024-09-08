@@ -17,6 +17,8 @@ class StudentController {
             try {
                 const request = req.body;
                 const response = yield student_service_1.StudentService.getStudents(request);
+                const api_key = req.headers['x-api-token'];
+                console.log(api_key);
                 res.status(200).json({
                     status: 200,
                     massage: "success get all student",
@@ -96,5 +98,21 @@ class StudentController {
         });
     }
     ;
+    static getStudent(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = req.params;
+                const response = yield student_service_1.StudentService.getStudent(req.user, request.id);
+                res.status(200).json({
+                    status: 200,
+                    massage: "success get student",
+                    data: response,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
 }
 exports.StudentController = StudentController;

@@ -6,6 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.publicRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const student_controller_1 = require("../controller/student-controller");
+const teacher_controller_1 = require("../controller/teacher-controller");
 exports.publicRouter = express_1.default.Router();
-exports.publicRouter.post("/api/students/register", student_controller_1.StudentController.register);
-exports.publicRouter.post("/api/students/login", student_controller_1.StudentController.login);
+// Student API
+exports.publicRouter.post("/api/students/register", student_controller_1.StudentController.register); //✅
+exports.publicRouter.post("/api/students/login", student_controller_1.StudentController.login); //✅
+// Teacher API
+exports.publicRouter.post("/api/teachers/register", teacher_controller_1.TeacherController.register); //✅
+exports.publicRouter.post("/api/teachers/login", teacher_controller_1.TeacherController.login); //✅

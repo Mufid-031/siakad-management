@@ -3,10 +3,10 @@ import { Enrollment, User } from "@prisma/client";
 export type StudentResponse = {
     name?: string;
     nim?: string;
+    enrollments?: Enrollment[]
     createdAt?: Date;
     updatedAt?: Date;
     user?: User;
-    enrollments?: Enrollment[]
     token?: string | null;
 };
 

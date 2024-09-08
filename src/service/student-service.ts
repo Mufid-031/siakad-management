@@ -65,14 +65,17 @@ export class StudentService {
         };
 
         if (updateRequest.password) {
-            user.password = await bcrypt.hash(updateRequest.password, 10);
+            updateRequest.password = await bcrypt.hash(updateRequest.password, 10);
         };
 
         const response = await prismaClient.user.update({
             where: {
                 id: user.id
             },
-            data: updateRequest
+            data: {
+                email: updateRequest.email,
+                password: updateRequest.password
+            }
         });
 
         return toStudentResponse(response);
@@ -128,6 +131,27 @@ export class StudentService {
         });
 
         return toStudentResponse(response);
+    };
+
+    static async getStudent(user: User, id: number): Promise<StudentResponse> {
+
+        const student = await prismaClient.student.findUnique({
+            where: {
+                userId: Number(id)
+            },
+            include: {
+                user: true,
+                enrollments: true
+            }
+        });
+
+        if (!student) {
+            throw new ResponseError(404, "Student not found");
+        };
+
+        const response = toStudentResponse(student);
+        return response;
+
     };
 
 }
