@@ -6,7 +6,9 @@ function toEnrollmentResponse(enrollment) {
         id: enrollment.id,
         studentId: enrollment.studentId,
         courseId: enrollment.courseId,
+        student: enrollment.student,
+        course: enrollment.course,
         createdAt: enrollment.createdAt,
-        updateAt: enrollment.updateAt
+        updateAt: enrollment.updateAt,
     };
 }

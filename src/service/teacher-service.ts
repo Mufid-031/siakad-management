@@ -134,11 +134,11 @@ export class TeacherService {
 
     };
 
-    static async getTeacher(user: User, id: number): Promise<TeacherResponse> {
+    static async getTeacher(user: User, request: TeacherRequest): Promise<TeacherResponse> {
 
         const teacher = await prismaClient.teacher.findFirst({
             where: {
-                userId: Number(id),
+                userId: request.id,
             },
             include: {
               user: true,

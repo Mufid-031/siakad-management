@@ -67,7 +67,6 @@ export class TeacherController {
 
     static async logout(req: UserRequest, res: Response, next: NextFunction) {
         try {
-            const request: TeacherRequest = req.body as TeacherRequest;
             const response = await TeacherService.logout(req.user!);
 
             res.status(200).json({
@@ -83,8 +82,8 @@ export class TeacherController {
     static async getTeacher(req: UserRequest, res: Response, next: NextFunction) {
         try {
             const request: TeacherRequest = req.params as TeacherRequest;
-            const { id }: TeacherRequest = request;
-            const response = await TeacherService.getTeacher(req.user!, id!);
+            request.id = Number(request.id);
+            const response = await TeacherService.getTeacher(req.user!, request);
 
             res.status(200).json({
                 status: 200,

@@ -135,3 +135,4 @@ class StudentController {
     ;
 }
 exports.StudentController = StudentController;
+;

@@ -15,30 +15,51 @@ const enrollment_model_1 = require("../model/enrollment-model");
 const enrollment_validation_1 = require("../validation/enrollment-validation");
 const validation_1 = require("../validation/validation");
 class EnrollmentService {
-    static create(request) {
+    static createEnrollment(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const createRequest = validation_1.Validation.validate(enrollment_validation_1.EnrollmentValidate.CREATE, request);
             const response = yield database_1.prismaClient.enrollment.create({
                 data: {
                     studentId: createRequest.studentId,
                     courseId: createRequest.courseId
+                },
+                include: {
+                    student: true,
+                    course: true
                 }
             });
             return (0, enrollment_model_1.toEnrollmentResponse)(response);
         });
     }
     ;
-    static delete(enrollment, id) {
+    static deleteEnrollment(enrollment, request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deleteRequest = validation_1.Validation.validate(enrollment_validation_1.EnrollmentValidate.DELETE, id);
+            const deleteRequest = validation_1.Validation.validate(enrollment_validation_1.EnrollmentValidate.DELETE, request);
             const response = yield database_1.prismaClient.enrollment.deleteMany({
                 where: {
-                    id: deleteRequest
+                    id: deleteRequest.id
                 }
             });
             return {
                 message: `Enrollment ${response.count} deleted`
             };
+        });
+    }
+    ;
+    static getAllEnrollmentsStudent(enrollment, request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const getAllEnrollmentsStudentRequest = validation_1.Validation.validate(enrollment_validation_1.EnrollmentValidate.GET_ALL_ENROLLMENTS_STUDENT, request);
+            const response = yield database_1.prismaClient.enrollment.findMany({
+                where: {
+                    studentId: getAllEnrollmentsStudentRequest.studentId,
+                },
+                include: {
+                    student: true,
+                    course: true,
+                    grade: true,
+                },
+            });
+            return response.map(enrollment => (0, enrollment_model_1.toEnrollmentResponse)(enrollment));
         });
     }
     ;

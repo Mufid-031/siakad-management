@@ -39,23 +39,34 @@ export class CourseService {
 
         const updateRequest = Validation.validate(CourseValidate.UPDATE, request);
 
+        let updatedRequest: CourseUpdate = {};
+
         if (updateRequest.name) {
-            course.name = updateRequest.name!;
+            updatedRequest = {
+                ...updatedRequest,
+                name: updateRequest.name
+            };
         };
 
         if (updateRequest.code) {
-            course.code = updateRequest.code!;
+            updatedRequest = {
+                ...updatedRequest,
+                code: updateRequest.code
+            };
         };
 
         if (updateRequest.teacherId) {
-            course.teacherId = updateRequest.teacherId!;
+            updatedRequest = {
+                ...updatedRequest,
+                teacherId: updateRequest.teacherId
+            };
         };
 
         const response = await prismaClient.course.update({
             where: {
-                id: course.id
+                id: updateRequest.id
             },
-            data: updateRequest
+            data: updatedRequest
         });
 
         return toCourseResponse(response);

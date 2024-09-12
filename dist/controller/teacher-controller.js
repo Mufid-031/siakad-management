@@ -83,7 +83,6 @@ class TeacherController {
     static logout(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const request = req.body;
                 const response = yield teacher_service_1.TeacherService.logout(req.user);
                 res.status(200).json({
                     status: 200,
@@ -101,8 +100,8 @@ class TeacherController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.params;
-                const { id } = request;
-                const response = yield teacher_service_1.TeacherService.getTeacher(req.user, id);
+                request.id = Number(request.id);
+                const response = yield teacher_service_1.TeacherService.getTeacher(req.user, request);
                 res.status(200).json({
                     status: 200,
                     massage: "success get teacher",

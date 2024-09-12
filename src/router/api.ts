@@ -4,6 +4,7 @@ import { StudentController } from "../controller/student-controller";
 import { TeacherController } from "../controller/teacher-controller";
 import { CourseController } from "../controller/course-controller";
 import { EnrollmentController } from "../controller/enrollment-controller";
+import { GradeController } from "../controller/grade-controller";
 
 export const apiRouter = express.Router();
 apiRouter.use(authMiddleware);
@@ -25,9 +26,16 @@ apiRouter.get("/api/teachers/:id", TeacherController.getTeacher);   //✅
 // Course API
 apiRouter.get("/api/courses", CourseController.getCourses);         //✅
 apiRouter.post("/api/courses", CourseController.createCourse);      //✅
-apiRouter.patch("/api/courses", CourseController.updateCourse);
+apiRouter.patch("/api/courses", CourseController.updateCourse);     //✅
 apiRouter.delete("/api/courses/:id", CourseController.deleteCourse);//✅
 apiRouter.get("/api/courses/:id", CourseController.getCourse);      //✅
 
 // Enrollment API
-apiRouter.post("/api/enrollments", EnrollmentController.create);
+apiRouter.post("/api/enrollments", EnrollmentController.createEnrollment);                      //✅
+apiRouter.delete("/api/enrollments/:id", EnrollmentController.deleteEnrollment);                //✅
+apiRouter.get("/api/enrollments/:studentId", EnrollmentController.getAllEnrollmentsStudent);    //✅
+
+// Grade API
+apiRouter.post("/api/grades/assign", GradeController.assignGrade);          //✅
+apiRouter.patch("/api/grades", GradeController.updateGrade);                //✅
+apiRouter.delete("/api/grades/:enrollmentId", GradeController.deleteGrade); //✅

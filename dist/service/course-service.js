@@ -44,23 +44,24 @@ class CourseService {
     static updateCourse(course, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateRequest = validation_1.Validation.validate(course_validation_1.CourseValidate.UPDATE, request);
+            let updatedRequest = {};
             if (updateRequest.name) {
-                course.name = updateRequest.name;
+                updatedRequest = Object.assign(Object.assign({}, updatedRequest), { name: updateRequest.name });
             }
             ;
             if (updateRequest.code) {
-                course.code = updateRequest.code;
+                updatedRequest = Object.assign(Object.assign({}, updatedRequest), { code: updateRequest.code });
             }
             ;
             if (updateRequest.teacherId) {
-                course.teacherId = updateRequest.teacherId;
+                updatedRequest = Object.assign(Object.assign({}, updatedRequest), { teacherId: updateRequest.teacherId });
             }
             ;
             const response = yield database_1.prismaClient.course.update({
                 where: {
-                    id: course.id
+                    id: updateRequest.id
                 },
-                data: updateRequest
+                data: updatedRequest
             });
             return (0, course_model_1.toCourseResponse)(response);
         });

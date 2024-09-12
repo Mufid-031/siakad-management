@@ -5,5 +5,7 @@ class Validation {
     static validate(schema, data) {
         return schema.parse(data);
     }
+    ;
 }
 exports.Validation = Validation;
+;

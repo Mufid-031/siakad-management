@@ -35,7 +35,6 @@ export class StudentController {
         } catch (error) {
             next(error);
         }
-
     };
 
     static async update(req: UserRequest, res: Response, next: NextFunction) {
@@ -113,4 +112,4 @@ export class StudentController {
         }
     };
 
-}
+};

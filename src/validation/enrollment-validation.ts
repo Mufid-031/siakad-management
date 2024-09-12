@@ -11,4 +11,8 @@ export class EnrollmentValidate {
         id: z.number().min(1)
     });
 
+    static readonly GET_ALL_ENROLLMENTS_STUDENT: ZodType = z.object({
+        studentId: z.number().min(1),
+    });
+
 };

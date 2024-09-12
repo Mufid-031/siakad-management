@@ -9,17 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EnrollmentController = void 0;
-const enrollment_service_1 = require("../service/enrollment-service");
-class EnrollmentController {
-    static createEnrollment(req, res, next) {
+exports.GradeController = void 0;
+const grade_service_1 = require("../service/grade-service");
+class GradeController {
+    static assignGrade(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = yield enrollment_service_1.EnrollmentService.createEnrollment(request);
-                res.status(201).json({
-                    status: 201,
-                    message: "Enrollment created",
+                const response = yield grade_service_1.GradeService.assignGrade(request);
+                res.status(200).json({
+                    status: 200,
+                    massage: "success asign grade",
                     data: response
                 });
             }
@@ -29,15 +29,16 @@ class EnrollmentController {
         });
     }
     ;
-    static deleteEnrollment(req, res, next) {
+    static updateGrade(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const request = req.params;
-                request.id = Number(request.id);
-                const response = enrollment_service_1.EnrollmentService.deleteEnrollment(req.enrollment, request);
+                const request = req.body;
+                request.enrollmentId = Number(request.enrollmentId);
+                request.grade = Number(request.grade);
+                const response = yield grade_service_1.GradeService.updateGrade(req.grade, request);
                 res.status(200).json({
                     status: 200,
-                    message: "Enrollment deleted",
+                    massage: "success update grade",
                     data: response
                 });
             }
@@ -47,15 +48,15 @@ class EnrollmentController {
         });
     }
     ;
-    static getAllEnrollmentsStudent(req, res, next) {
+    static deleteGrade(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.params;
-                request.studentId = Number(request.studentId);
-                const response = yield enrollment_service_1.EnrollmentService.getAllEnrollmentsStudent(req.enrollment, request);
+                request.enrollmentId = Number(request.enrollmentId);
+                const response = yield grade_service_1.GradeService.deleteGrade(req.grade, request);
                 res.status(200).json({
                     status: 200,
-                    message: "success get all enrollments student",
+                    massage: "success delete grade",
                     data: response
                 });
             }
@@ -64,6 +65,7 @@ class EnrollmentController {
             }
         });
     }
+    ;
 }
-exports.EnrollmentController = EnrollmentController;
+exports.GradeController = GradeController;
 ;

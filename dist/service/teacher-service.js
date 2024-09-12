@@ -134,11 +134,11 @@ class TeacherService {
         });
     }
     ;
-    static getTeacher(user, id) {
+    static getTeacher(user, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const teacher = yield database_1.prismaClient.teacher.findFirst({
                 where: {
-                    userId: Number(id),
+                    userId: request.id,
                 },
                 include: {
                     user: true,

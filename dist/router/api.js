@@ -10,6 +10,7 @@ const student_controller_1 = require("../controller/student-controller");
 const teacher_controller_1 = require("../controller/teacher-controller");
 const course_controller_1 = require("../controller/course-controller");
 const enrollment_controller_1 = require("../controller/enrollment-controller");
+const grade_controller_1 = require("../controller/grade-controller");
 exports.apiRouter = express_1.default.Router();
 exports.apiRouter.use(auth_middleware_1.authMiddleware);
 // Student API
@@ -27,8 +28,14 @@ exports.apiRouter.get("/api/teachers/:id", teacher_controller_1.TeacherControlle
 // Course API
 exports.apiRouter.get("/api/courses", course_controller_1.CourseController.getCourses); //✅
 exports.apiRouter.post("/api/courses", course_controller_1.CourseController.createCourse); //✅
-exports.apiRouter.patch("/api/courses", course_controller_1.CourseController.updateCourse);
-exports.apiRouter.delete("/api/courses/:id", course_controller_1.CourseController.deleteCourse);
+exports.apiRouter.patch("/api/courses", course_controller_1.CourseController.updateCourse); //✅
+exports.apiRouter.delete("/api/courses/:id", course_controller_1.CourseController.deleteCourse); //✅
 exports.apiRouter.get("/api/courses/:id", course_controller_1.CourseController.getCourse); //✅
 // Enrollment API
-exports.apiRouter.post("/api/enrollments", enrollment_controller_1.EnrollmentController.create);
+exports.apiRouter.post("/api/enrollments", enrollment_controller_1.EnrollmentController.createEnrollment); //✅
+exports.apiRouter.delete("/api/enrollments/:id", enrollment_controller_1.EnrollmentController.deleteEnrollment); //✅
+exports.apiRouter.get("/api/enrollments/:studentId", enrollment_controller_1.EnrollmentController.getAllEnrollmentsStudent); //✅
+// Grade API
+exports.apiRouter.post("/api/grades/assign", grade_controller_1.GradeController.assignGrade); //✅
+exports.apiRouter.patch("/api/grades", grade_controller_1.GradeController.updateGrade); //✅
+exports.apiRouter.delete("/api/grades/:enrollmentId", grade_controller_1.GradeController.deleteGrade); //✅

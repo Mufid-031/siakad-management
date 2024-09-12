@@ -12,4 +12,7 @@ EnrollmentValidate.CREATE = zod_1.z.object({
 EnrollmentValidate.DELETE = zod_1.z.object({
     id: zod_1.z.number().min(1)
 });
+EnrollmentValidate.GET_ALL_ENROLLMENTS_STUDENT = zod_1.z.object({
+    studentId: zod_1.z.number().min(1),
+});
 ;
