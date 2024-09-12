@@ -13,4 +13,8 @@ const PORT = process.env.PORT || 3000;
 
 web.listen(PORT, () => {
     console.log("Listening on port 3000");
+});
+
+web.get("/", (req, res) => {
+    res.send("Hello World!");
 })
