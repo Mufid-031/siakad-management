@@ -13,6 +13,10 @@ exports.web.use(express_1.default.json());
 exports.web.use(public_api_1.publicRouter);
 exports.web.use(api_1.apiRouter);
 exports.web.use(error_middleware_1.errorMiddleware);
-exports.web.listen(3000, () => {
+const PORT = process.env.PORT || 3000;
+exports.web.listen(PORT, () => {
     console.log("Listening on port 3000");
+});
+exports.web.get("/", (req, res) => {
+    res.send("Hello World!");
 });
