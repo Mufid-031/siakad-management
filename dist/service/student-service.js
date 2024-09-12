@@ -154,5 +154,19 @@ class StudentService {
         });
     }
     ;
+    static delete(user, request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const deleteRequest = validation_1.Validation.validate(student_validation_1.StudentValidate.DELETE, request);
+            const response = yield database_1.prismaClient.user.deleteMany({
+                where: {
+                    id: deleteRequest.id
+                }
+            });
+            return {
+                message: `Student ${response.count} deleted`
+            };
+        });
+    }
+    ;
 }
 exports.StudentService = StudentService;

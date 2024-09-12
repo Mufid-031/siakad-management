@@ -1,6 +1,7 @@
 import { Enrollment, User } from "@prisma/client";
 
 export type StudentResponse = {
+    id?: number;
     name?: string;
     nim?: string;
     enrollments?: Enrollment[]
@@ -8,6 +9,7 @@ export type StudentResponse = {
     updatedAt?: Date;
     user?: User;
     token?: string | null;
+    message?: string;
 };
 
 export type StudentRequest = {
@@ -38,6 +40,7 @@ export type StudentLoginRequest = {
 
 export function toStudentResponse(student: StudentResponse): StudentResponse {
     return {
+        id: student.id,
         name: student.name,
         nim: student.nim,
         createdAt: student.createdAt,

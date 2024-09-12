@@ -16,7 +16,7 @@ export class CourseValidate {
     });
 
     static readonly DELETE: ZodType = z.object({
-        id: z.number().min(1).optional(),
+        id: z.number(),
     });
 
 };

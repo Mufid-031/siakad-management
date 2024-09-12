@@ -29,3 +29,6 @@ StudentValidate.GET = zod_1.z.object({
     password: zod_1.z.string().min(1).max(100).optional(),
     nim: zod_1.z.string().min(1).max(12).optional(),
 });
+StudentValidate.DELETE = zod_1.z.object({
+    id: zod_1.z.number(),
+});

@@ -17,6 +17,6 @@ CourseValidate.UPDATE = zod_1.z.object({
     teacherId: zod_1.z.number().min(1).optional(),
 });
 CourseValidate.DELETE = zod_1.z.object({
-    id: zod_1.z.number().min(1).optional(),
+    id: zod_1.z.number(),
 });
 ;

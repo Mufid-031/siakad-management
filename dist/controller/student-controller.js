@@ -15,9 +15,9 @@ class StudentController {
     static getStudents(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const api_key = req.headers['x-api-token'];
                 const request = req.body;
                 const response = yield student_service_1.StudentService.getStudents(request);
-                const api_key = req.headers['x-api-token'];
                 console.log(api_key);
                 res.status(200).json({
                     status: 200,
@@ -114,5 +114,24 @@ class StudentController {
             }
         });
     }
+    ;
+    static delete(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = req.params;
+                request.id = Number(request.id);
+                const response = yield student_service_1.StudentService.delete(req.user, request);
+                res.status(200).json({
+                    status: 200,
+                    massage: "success delete student",
+                    data: response,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    ;
 }
 exports.StudentController = StudentController;

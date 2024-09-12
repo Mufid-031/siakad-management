@@ -96,4 +96,20 @@ export class TeacherController {
         }
     };
 
+    static async delete(req: UserRequest, res: Response, next: NextFunction) {
+        try {
+            const request = req.params as TeacherRequest;
+            request.id = Number(request.id);
+            const response = await TeacherService.delete(req.user!, request);
+
+            res.status(200).json({
+                status: 200,
+                massage: "success delete teacher",
+                data: response,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
+
 };

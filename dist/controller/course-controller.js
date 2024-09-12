@@ -50,6 +50,7 @@ class CourseController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
+                request.id = Number(request.id);
                 const response = yield course_service_1.CourseService.updateCourse(req.course, request);
                 res.status(201).json({
                     status: 201,
@@ -67,6 +68,7 @@ class CourseController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
+                request.id = Number(request.id);
                 const response = yield course_service_1.CourseService.deleteCourse(req.course, request);
                 res.status(201).json({
                     status: 201,

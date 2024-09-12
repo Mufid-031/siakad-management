@@ -155,4 +155,20 @@ export class TeacherService {
         
     };
 
+    static async delete(user: User, request: TeacherRequest): Promise<TeacherResponse> {
+
+        const deleteRequest = Validation.validate(TeacherValidate.DELETE, request);
+
+        const teacher = await prismaClient.teacher.deleteMany({
+            where: {
+                id: deleteRequest.id
+            }
+        });
+
+        return {
+            message: `Teacher ${teacher.count} deleted`
+        };
+
+    };
+
 };

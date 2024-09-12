@@ -154,6 +154,20 @@ class TeacherService {
         });
     }
     ;
+    static delete(user, request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const deleteRequest = validation_1.Validation.validate(teacher_validation_1.TeacherValidate.DELETE, request);
+            const teacher = yield database_1.prismaClient.teacher.deleteMany({
+                where: {
+                    id: deleteRequest.id
+                }
+            });
+            return {
+                message: `Teacher ${teacher.count} deleted`
+            };
+        });
+    }
+    ;
 }
 exports.TeacherService = TeacherService;
 ;

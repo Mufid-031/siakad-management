@@ -30,4 +30,8 @@ export class StudentValidate {
         nim: z.string().min(1).max(12).optional(),
     });
 
+    static readonly DELETE: ZodType = z.object({
+        id: z.number(),
+    });
+
 }

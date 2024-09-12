@@ -154,4 +154,21 @@ export class StudentService {
 
     };
 
+
+    static async delete(user: User, request: StudentRequest): Promise<StudentResponse> {
+
+        const deleteRequest = Validation.validate(StudentValidate.DELETE, request);
+
+        const response = await prismaClient.user.deleteMany({
+            where: {
+                id: deleteRequest.id
+            }
+        });
+
+        return {
+            message: `Student ${response.count} deleted`
+        };
+
+    };
+
 }

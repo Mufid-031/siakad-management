@@ -39,6 +39,7 @@ export class CourseController {
     static async updateCourse(req: CourseReq, res: Response, next: NextFunction) {
         try {
             const request: CourseRequest = req.body as CourseRequest;
+            request.id = Number(request.id);
             const response = await CourseService.updateCourse(req.course!, request);
 
             res.status(201).json({
@@ -54,6 +55,7 @@ export class CourseController {
     static async deleteCourse(req: CourseReq, res: Response, next: NextFunction) {
         try {
             const request: CourseRequest = req.body as CourseRequest;
+            request.id = Number(request.id);
             const response = await CourseService.deleteCourse(req.course!, request);
 
             res.status(201).json({

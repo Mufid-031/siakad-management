@@ -95,6 +95,22 @@ export class StudentController {
         } catch (error) {
             next(error);
         }
-    }
+    };
+
+    static async delete(req: UserRequest, res: Response, next: NextFunction) {
+        try {
+            const request: StudentRequest = req.params as StudentRequest;
+            request.id = Number(request.id);
+            const response = await StudentService.delete(req.user!, request);
+
+            res.status(200).json({
+                status: 200,
+                massage: "success delete student",
+                data: response,
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
 
 }

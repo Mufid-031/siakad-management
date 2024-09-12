@@ -8,6 +8,7 @@ export type TeacherResponse = {
     updatedAt?: Date;
     user?: User;
     token?: string | null;
+    message?: string;
 };
 
 export type TeacherRequest = {

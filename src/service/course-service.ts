@@ -64,11 +64,11 @@ export class CourseService {
 
     static async deleteCourse(course: Course, request: CourseRequest): Promise<CourseResponse> {
 
-        const deleteRequest = Validation.validate(CourseValidate.DELETE, request.id);
+        const deleteRequest = Validation.validate(CourseValidate.DELETE, request);
 
         const response = await prismaClient.course.deleteMany({
             where: {
-                id: deleteRequest
+                id: deleteRequest.id
             }
         });
 
@@ -80,11 +80,11 @@ export class CourseService {
 
     static async getCourse(course: Course, request: CourseRequest): Promise<CourseResponse> {
 
-        const getCourseRequest = Validation.validate(CourseValidate.DELETE, request.id);
+        const getCourseRequest = Validation.validate(CourseValidate.DELETE, request);
 
         const response = await prismaClient.course.findUnique({
             where: {
-                id: getCourseRequest
+                id: getCourseRequest.id
             }
         });
 

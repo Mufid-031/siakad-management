@@ -115,6 +115,24 @@ class TeacherController {
         });
     }
     ;
+    static delete(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = req.params;
+                request.id = Number(request.id);
+                const response = yield teacher_service_1.TeacherService.delete(req.user, request);
+                res.status(200).json({
+                    status: 200,
+                    massage: "success delete teacher",
+                    data: response,
+                });
+            }
+            catch (error) {
+                next(error);
+            }
+        });
+    }
+    ;
 }
 exports.TeacherController = TeacherController;
 ;

@@ -68,10 +68,10 @@ class CourseService {
     ;
     static deleteCourse(course, request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const deleteRequest = validation_1.Validation.validate(course_validation_1.CourseValidate.DELETE, request.id);
+            const deleteRequest = validation_1.Validation.validate(course_validation_1.CourseValidate.DELETE, request);
             const response = yield database_1.prismaClient.course.deleteMany({
                 where: {
-                    id: deleteRequest
+                    id: deleteRequest.id
                 }
             });
             return {
@@ -82,10 +82,10 @@ class CourseService {
     ;
     static getCourse(course, request) {
         return __awaiter(this, void 0, void 0, function* () {
-            const getCourseRequest = validation_1.Validation.validate(course_validation_1.CourseValidate.DELETE, request.id);
+            const getCourseRequest = validation_1.Validation.validate(course_validation_1.CourseValidate.DELETE, request);
             const response = yield database_1.prismaClient.course.findUnique({
                 where: {
-                    id: getCourseRequest
+                    id: getCourseRequest.id
                 }
             });
             return (0, course_model_1.toCourseResponse)(response);

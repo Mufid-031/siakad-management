@@ -22,4 +22,8 @@ export class TeacherValidate {
         password: z.string().min(1).max(100),
     });
 
+    static readonly DELETE: ZodType = z.object({
+        id: z.number(),
+    });
+
 };
