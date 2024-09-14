@@ -11,6 +11,7 @@ const teacher_controller_1 = require("../controller/teacher-controller");
 const course_controller_1 = require("../controller/course-controller");
 const enrollment_controller_1 = require("../controller/enrollment-controller");
 const grade_controller_1 = require("../controller/grade-controller");
+const admin_controller_1 = require("../controller/admin-controller");
 exports.apiRouter = express_1.default.Router();
 exports.apiRouter.use(auth_middleware_1.authMiddleware);
 // Student API
@@ -25,6 +26,10 @@ exports.apiRouter.patch("/api/teachers", teacher_controller_1.TeacherController.
 exports.apiRouter.patch("/api/teachers/logout", teacher_controller_1.TeacherController.logout); //✅
 exports.apiRouter.delete("/api/teachers/:id", teacher_controller_1.TeacherController.delete); //✅
 exports.apiRouter.get("/api/teachers/:id", teacher_controller_1.TeacherController.getTeacher); //✅
+// Admin API
+exports.apiRouter.patch("/api/admin", admin_controller_1.AdminController.update);
+exports.apiRouter.post("/api/admin/logout", admin_controller_1.AdminController.logout);
+exports.apiRouter.delete("/api/admin/:id", admin_controller_1.AdminController.delete);
 // Course API
 exports.apiRouter.get("/api/courses", course_controller_1.CourseController.getCourses); //✅
 exports.apiRouter.post("/api/courses", course_controller_1.CourseController.createCourse); //✅
