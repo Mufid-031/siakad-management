@@ -17,4 +17,4 @@ web.listen(PORT, () => {
 
 web.get("/", (req, res) => {
     res.send("Hello World!");
-})
+});

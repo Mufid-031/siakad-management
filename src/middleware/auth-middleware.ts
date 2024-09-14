@@ -3,6 +3,21 @@ import { prismaClient } from "../app/database";
 import { UserRequest } from "../types/user-request";
 
 export const authMiddleware = async (req: UserRequest, res: Response, next: NextFunction) => {
+
+    const excludedRoutes = [
+        '/api/students/register',
+        '/api/students/login',
+        '/api/teachers/register',
+        '/api/teachers/login'
+    ];
+
+    if (!req.path.startsWith('/api')) {
+        return next();
+    }
+
+    if (excludedRoutes.includes(req.path)) {
+        return next();
+    }
     
     const token = req.get("X-API-TOKEN");
 

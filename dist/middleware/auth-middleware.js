@@ -12,6 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authMiddleware = void 0;
 const database_1 = require("../app/database");
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const excludedRoutes = [
+        '/api/students/register',
+        '/api/students/login',
+        '/api/teachers/register',
+        '/api/teachers/login'
+    ];
+    if (!req.path.startsWith('/api')) {
+        return next();
+    }
+    if (excludedRoutes.includes(req.path)) {
+        return next();
+    }
     const token = req.get("X-API-TOKEN");
     if (token) {
         const user = yield database_1.prismaClient.user.findFirst({
