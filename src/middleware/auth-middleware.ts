@@ -28,6 +28,20 @@ export const authMiddleware = async (req: UserRequest, res: Response, next: Next
             }
         });
 
+        // if (user?.role === "ADMIN") {
+        //     const user = await prismaClient.user.findFirst({
+        //         where: {
+        //             id: req.body.id
+        //         }
+        //     });
+
+        //     if (user) {
+        //         req.user = user;
+        //         next();
+        //         return;
+        //     }
+        // };
+
         if (user) {
             req.user = user;
             next();

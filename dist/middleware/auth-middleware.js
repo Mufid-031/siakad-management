@@ -31,6 +31,18 @@ const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
                 token: token
             }
         });
+        // if (user?.role === "ADMIN") {
+        //     const user = await prismaClient.user.findFirst({
+        //         where: {
+        //             id: req.body.id
+        //         }
+        //     });
+        //     if (user) {
+        //         req.user = user;
+        //         next();
+        //         return;
+        //     }
+        // };
         if (user) {
             req.user = user;
             next();

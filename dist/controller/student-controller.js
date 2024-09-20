@@ -36,6 +36,7 @@ class StudentController {
             try {
                 const request = req.body;
                 const response = yield student_service_1.StudentService.register(request);
+                console.log(request);
                 res.status(201).json({
                     status: 201,
                     massage: "success register student",

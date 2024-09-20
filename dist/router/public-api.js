@@ -16,5 +16,5 @@ exports.publicRouter.post("/api/students/login", student_controller_1.StudentCon
 exports.publicRouter.post("/api/teachers/register", teacher_controller_1.TeacherController.register); //✅
 exports.publicRouter.post("/api/teachers/login", teacher_controller_1.TeacherController.login); //✅
 // ADMIN API
-exports.publicRouter.post("/api/admin/register", admin_controller_1.AdminController.register);
-exports.publicRouter.post("/api/admin/login", admin_controller_1.AdminController.login);
+exports.publicRouter.post("/api/admin/register", admin_controller_1.AdminController.register); //✅
+exports.publicRouter.post("/api/admin/login", admin_controller_1.AdminController.login); //✅

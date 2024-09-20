@@ -23,7 +23,7 @@ export class AdminController {
     static async login(req: Request, res: Response, next: NextFunction) {
         try {
             const request: AdminLoginRequest = req.body as AdminLoginRequest;
-            const response = AdminService.login(request);
+            const response = await AdminService.login(request);
 
             res.status(200).json({
                 status: 200,
@@ -38,11 +38,12 @@ export class AdminController {
     static async update(req: UserRequest, res: Response, next: NextFunction) {
         try {
             const request: AdminUpdateRequest = req.body as AdminUpdateRequest;
+            request.id = Number(request.id);
             const response = await AdminService.update(req.user!, request);
 
             res.status(201).json({
                 status: 201,
-                massage: "success update admin",
+                massage: "success update user",
                 data: response
             });
         } catch (error) {

@@ -9,8 +9,9 @@ export class AdminValidate {
     });
 
     static readonly UPDATE: ZodType = z.object({
+        id: z.number().min(1),
+        name: z.string().min(1).max(100).optional(),
         email: z.string().min(1).max(100).optional(),
-        password: z.string().min(1).max(100).optional(),
     });
 
     static readonly LOGIN: ZodType = z.object({
@@ -21,5 +22,6 @@ export class AdminValidate {
     static readonly DELETE: ZodType = z.object({
         id: z.number(),
     });
+
 
 };

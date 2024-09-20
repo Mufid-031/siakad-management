@@ -116,6 +116,7 @@ class StudentService {
             });
             const response = (0, student_model_1.toStudentResponse)(user);
             response.token = user.token;
+            console.log(response);
             return response;
         });
     }

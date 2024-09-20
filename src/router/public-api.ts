@@ -14,5 +14,5 @@ publicRouter.post("/api/teachers/register", TeacherController.register); //✅
 publicRouter.post("/api/teachers/login", TeacherController.login);       //✅
 
 // ADMIN API
-publicRouter.post("/api/admin/register", AdminController.register);
-publicRouter.post("/api/admin/login", AdminController.login)
+publicRouter.post("/api/admin/register", AdminController.register);      //✅
+publicRouter.post("/api/admin/login", AdminController.login);            //✅

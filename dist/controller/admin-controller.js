@@ -33,7 +33,7 @@ class AdminController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
-                const response = admin_service_1.AdminService.login(request);
+                const response = yield admin_service_1.AdminService.login(request);
                 res.status(200).json({
                     status: 200,
                     massage: "success login admin",
@@ -50,10 +50,11 @@ class AdminController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const request = req.body;
+                request.id = Number(request.id);
                 const response = yield admin_service_1.AdminService.update(req.user, request);
                 res.status(201).json({
                     status: 201,
-                    massage: "success update admin",
+                    massage: "success update user",
                     data: response
                 });
             }

@@ -8,6 +8,8 @@ function toAdminResponse(admin) {
         email: admin.email,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,
+        user: admin.user,
+        token: admin.token,
         message: admin.message
     };
 }

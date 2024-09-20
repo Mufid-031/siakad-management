@@ -31,6 +31,9 @@ export class AdminService {
                 email: registerRequest.email,
                 password: registerRequest.password,
                 role: "ADMIN",
+                Admin: {
+                    create: {}
+                }
             }
         });
 
@@ -67,34 +70,10 @@ export class AdminService {
             }
         });
 
-        return toAdminResponse(user);
-
-    };
-
-    static async update(user: User, request: AdminUpdateRequest): Promise<AdminResponse> {
-
-        const updateRequest = Validation.validate(AdminValidate.UPDATE, request);
-
-        if (updateRequest.email) {
-            user.email = updateRequest.email;
-        };
-
-        if (updateRequest.password) {
-            updateRequest.password = await bcrypt.hash(updateRequest.password, 10);
-        };
-
-        const response = await prismaClient.user.update({
-            where: {
-                id: user.id
-            },
-            data: {
-                email: updateRequest.email,
-                password: updateRequest.password
-            }
-        });
-
-        return toAdminResponse(response);
-
+        const response = toAdminResponse(user!);
+        response.token = user.token!;
+        console.log(response);
+        return response;
     };
 
     static async delete(user: User, request: AdminUpdateRequest): Promise<AdminResponse> {
@@ -125,6 +104,30 @@ export class AdminService {
         });
 
         return toAdminResponse(response);
+
+    };
+
+    static async update(user: User, request: AdminUpdateRequest): Promise<AdminResponse> {
+
+        const updateRequest = Validation.validate(AdminValidate.UPDATE, request);
+
+        if (updateRequest.name) {
+            user.name = updateRequest.name;
+        };
+
+        if (updateRequest.email) {
+            user.email = updateRequest.email;
+        };
+
+        const response = await prismaClient.user.update({
+            where: {
+                id: updateRequest.id
+            },
+            data: updateRequest
+        });
+
+
+        return toAdminResponse(response!);
 
     };
 

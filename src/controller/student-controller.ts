@@ -26,6 +26,7 @@ export class StudentController {
         try {
             const request: StudentRequest = req.body as StudentRequest;
             const response = await StudentService.register(request);
+            console.log(request);
 
             res.status(201).json({
                 status: 201,

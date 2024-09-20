@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 export type AdminResponse = {
     id?: number;
     name?: string;
@@ -5,6 +7,8 @@ export type AdminResponse = {
     createdAt?: Date;
     updatedAt?: Date;
     message?: string;
+    user?: User;
+    token?: string | null;
 }
 
 export type AdminRegisterRequest = {
@@ -32,6 +36,8 @@ export function toAdminResponse(admin: AdminResponse): AdminResponse {
         email: admin.email,
         createdAt: admin.createdAt,
         updatedAt: admin.updatedAt,
+        user: admin.user,
+        token: admin.token,
         message: admin.message
     }
 }

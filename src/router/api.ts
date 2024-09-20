@@ -25,9 +25,9 @@ apiRouter.delete("/api/teachers/:id", TeacherController.delete);    //✅
 apiRouter.get("/api/teachers/:id", TeacherController.getTeacher);   //✅
 
 // Admin API
-apiRouter.patch("/api/admin", AdminController.update);
-apiRouter.post("/api/admin/logout", AdminController.logout);
-apiRouter.delete("/api/admin/:id", AdminController.delete);
+apiRouter.patch("/api/admin", AdminController.update);              //✅
+apiRouter.post("/api/admin/logout", AdminController.logout);        //✅
+apiRouter.delete("/api/admin/:id", AdminController.delete);         //✅
 
 // Course API
 apiRouter.get("/api/courses", CourseController.getCourses);         //✅

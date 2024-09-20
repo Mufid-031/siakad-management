@@ -40,6 +40,9 @@ class AdminService {
                     email: registerRequest.email,
                     password: registerRequest.password,
                     role: "ADMIN",
+                    Admin: {
+                        create: {}
+                    }
                 }
             });
             return (0, admin_model_1.toAdminResponse)(user);
@@ -71,31 +74,10 @@ class AdminService {
                     token: (0, uuid_1.v4)()
                 }
             });
-            return (0, admin_model_1.toAdminResponse)(user);
-        });
-    }
-    ;
-    static update(user, request) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const updateRequest = validation_1.Validation.validate(admin_validation_1.AdminValidate.UPDATE, request);
-            if (updateRequest.email) {
-                user.email = updateRequest.email;
-            }
-            ;
-            if (updateRequest.password) {
-                updateRequest.password = yield bcrypt_1.default.hash(updateRequest.password, 10);
-            }
-            ;
-            const response = yield database_1.prismaClient.user.update({
-                where: {
-                    id: user.id
-                },
-                data: {
-                    email: updateRequest.email,
-                    password: updateRequest.password
-                }
-            });
-            return (0, admin_model_1.toAdminResponse)(response);
+            const response = (0, admin_model_1.toAdminResponse)(user);
+            response.token = user.token;
+            console.log(response);
+            return response;
         });
     }
     ;
@@ -122,6 +104,27 @@ class AdminService {
                 data: {
                     token: null
                 }
+            });
+            return (0, admin_model_1.toAdminResponse)(response);
+        });
+    }
+    ;
+    static update(user, request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const updateRequest = validation_1.Validation.validate(admin_validation_1.AdminValidate.UPDATE, request);
+            if (updateRequest.name) {
+                user.name = updateRequest.name;
+            }
+            ;
+            if (updateRequest.email) {
+                user.email = updateRequest.email;
+            }
+            ;
+            const response = yield database_1.prismaClient.user.update({
+                where: {
+                    id: updateRequest.id
+                },
+                data: updateRequest
             });
             return (0, admin_model_1.toAdminResponse)(response);
         });

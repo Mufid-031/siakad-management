@@ -115,6 +115,7 @@ export class StudentService {
 
         const response = toStudentResponse(user);
         response.token = user.token!;
+        console.log(response);
         return response;
 
     };
