@@ -112,20 +112,68 @@ class AdminService {
     static update(user, request) {
         return __awaiter(this, void 0, void 0, function* () {
             const updateRequest = validation_1.Validation.validate(admin_validation_1.AdminValidate.UPDATE, request);
-            if (updateRequest.name) {
-                user.name = updateRequest.name;
+            let response;
+            if (updateRequest.role === "STUDENT") {
+                const userCount = yield database_1.prismaClient.student.findUnique({
+                    where: {
+                        id: updateRequest.id
+                    }
+                });
+                if (!userCount) {
+                    throw new response_error_1.ResponseError(404, "User not found");
+                }
+                ;
+                if (updateRequest.name) {
+                    response = yield database_1.prismaClient.student.update({
+                        where: {
+                            id: updateRequest.id
+                        },
+                        data: {
+                            user: {
+                                update: updateRequest
+                            }
+                        }
+                    });
+                }
+                ;
+                if (updateRequest.email) {
+                    response = yield database_1.prismaClient.student.update({
+                        where: {
+                            id: updateRequest.id
+                        },
+                        data: {
+                            user: {
+                                update: updateRequest
+                            }
+                        }
+                    });
+                }
+                ;
             }
-            ;
-            if (updateRequest.email) {
-                user.email = updateRequest.email;
+            else if (updateRequest.role === "TEACHER") {
+                const userCount = yield database_1.prismaClient.teacher.findUnique({
+                    where: {
+                        id: updateRequest.id
+                    }
+                });
+                if (!userCount) {
+                    throw new response_error_1.ResponseError(404, "User not found");
+                }
+                ;
+                if (updateRequest.name) {
+                    response = yield database_1.prismaClient.teacher.update({
+                        where: {
+                            id: updateRequest.id
+                        },
+                        data: {
+                            user: {
+                                update: updateRequest
+                            }
+                        }
+                    });
+                }
+                ;
             }
-            ;
-            const response = yield database_1.prismaClient.user.update({
-                where: {
-                    id: updateRequest.id
-                },
-                data: updateRequest
-            });
             return (0, admin_model_1.toAdminResponse)(response);
         });
     }

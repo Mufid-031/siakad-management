@@ -27,6 +27,7 @@ export type AdminUpdateRequest = {
     name?: string;
     email?: string;
     password?: string;
+    role?: "STUDENT" | "TEACHER" | "ADMIN";
 }
 
 export function toAdminResponse(admin: AdminResponse): AdminResponse {

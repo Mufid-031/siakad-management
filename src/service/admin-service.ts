@@ -110,21 +110,69 @@ export class AdminService {
     static async update(user: User, request: AdminUpdateRequest): Promise<AdminResponse> {
 
         const updateRequest = Validation.validate(AdminValidate.UPDATE, request);
+        let response;
 
-        if (updateRequest.name) {
-            user.name = updateRequest.name;
-        };
+        if (updateRequest.role === "STUDENT") {
+            const userCount = await prismaClient.student.findUnique({
+                where: {
+                    id: updateRequest.id
+                }
+            });
+    
+            if (!userCount) {
+                throw new ResponseError(404, "User not found");
+            };
+    
+            if (updateRequest.name) {
+                response = await prismaClient.student.update({
+                    where: {
+                        id: updateRequest.id
+                    },
+                    data: {
+                        user: {
+                            update: updateRequest
+                        }
+                    }
+                });
+            };
+    
+            if (updateRequest.email) {
+                response = await prismaClient.student.update({
+                    where: {
+                        id: updateRequest.id
+                    },
+                    data: {
+                        user: {
+                            update: updateRequest
+                        }
+                    }
+                });
+            };
+        } else if (updateRequest.role === "TEACHER") {
+            const userCount = await prismaClient.teacher.findUnique({
+                where: {
+                    id: updateRequest.id
+                }
+            });
+    
+            if (!userCount) {
+                throw new ResponseError(404, "User not found");
+            };
+    
+            if (updateRequest.name) {
+                response = await prismaClient.teacher.update({
+                    where: {
+                        id: updateRequest.id
+                    },
+                    data: {
+                        user: {
+                            update: updateRequest
+                        }
+                    }
+                });
+            };
+        }
 
-        if (updateRequest.email) {
-            user.email = updateRequest.email;
-        };
-
-        const response = await prismaClient.user.update({
-            where: {
-                id: updateRequest.id
-            },
-            data: updateRequest
-        });
 
 
         return toAdminResponse(response!);

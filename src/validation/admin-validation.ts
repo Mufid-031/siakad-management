@@ -12,6 +12,7 @@ export class AdminValidate {
         id: z.number().min(1),
         name: z.string().min(1).max(100).optional(),
         email: z.string().min(1).max(100).optional(),
+        role: z.string().min(1).max(100),
     });
 
     static readonly LOGIN: ZodType = z.object({

@@ -14,6 +14,7 @@ AdminValidate.UPDATE = zod_1.z.object({
     id: zod_1.z.number().min(1),
     name: zod_1.z.string().min(1).max(100).optional(),
     email: zod_1.z.string().min(1).max(100).optional(),
+    role: zod_1.z.string().min(1).max(100),
 });
 AdminValidate.LOGIN = zod_1.z.object({
     email: zod_1.z.string().min(1).max(100),
