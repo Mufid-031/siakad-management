@@ -61,7 +61,7 @@ export class StudentService {
         const updateRequest = Validation.validate(StudentValidate.UPDATE, request);
 
         if (updateRequest.email) {
-            user.email = updateRequest.email;
+            updateRequest.email = updateRequest.email;
         };
 
         if (updateRequest.password) {
