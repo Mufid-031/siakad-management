@@ -67,7 +67,7 @@ class StudentService {
         return __awaiter(this, void 0, void 0, function* () {
             const updateRequest = validation_1.Validation.validate(student_validation_1.StudentValidate.UPDATE, request);
             if (updateRequest.email) {
-                user.email = updateRequest.email;
+                updateRequest.email = updateRequest.email;
             }
             ;
             if (updateRequest.password) {

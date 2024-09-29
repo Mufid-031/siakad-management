@@ -1,6 +1,7 @@
 import { Course, User } from "@prisma/client";
 
 export type TeacherResponse = {
+    id?: number;
     name?: string;
     nip?: string;
     course?: Course[];
@@ -39,6 +40,7 @@ export type TeacherLoginRequest = {
 
 export function toTeacherResponse(teacher: TeacherResponse): TeacherResponse {
     return {
+        id: teacher.id,
         name: teacher.name,
         nip: teacher.nip,
         course: teacher.course,

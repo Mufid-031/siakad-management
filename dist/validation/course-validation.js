@@ -8,13 +8,17 @@ exports.CourseValidate = CourseValidate;
 CourseValidate.CREATE = zod_1.z.object({
     name: zod_1.z.string().min(1).max(100),
     code: zod_1.z.string().min(1).max(100),
-    teacherId: zod_1.z.number().min(1)
+    teacherId: zod_1.z.number().min(1),
+    semester: zod_1.z.string().min(1),
+    sks: zod_1.z.number().min(1),
 });
 CourseValidate.UPDATE = zod_1.z.object({
     id: zod_1.z.number().min(1).optional(),
     name: zod_1.z.string().min(1).max(100).optional(),
     code: zod_1.z.string().min(1).max(100).optional(),
     teacherId: zod_1.z.number().min(1).optional(),
+    semester: zod_1.z.string().min(1).optional(),
+    sks: zod_1.z.number().min(1).optional(),
 });
 CourseValidate.DELETE = zod_1.z.object({
     id: zod_1.z.number(),

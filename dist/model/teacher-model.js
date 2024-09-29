@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.toTeacherResponse = toTeacherResponse;
 function toTeacherResponse(teacher) {
     return {
+        id: teacher.id,
         name: teacher.name,
         nip: teacher.nip,
         course: teacher.course,

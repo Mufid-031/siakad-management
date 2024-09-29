@@ -7,9 +7,12 @@ function toCourseResponse(course) {
         name: course.name,
         code: course.code,
         teacher: course.teacher,
+        semester: course.semester,
+        sks: course.sks,
         createdAt: course.createdAt,
         updatedAt: course.updatedAt,
         enrollments: course.enrollments,
         message: course.message
     };
 }
+;

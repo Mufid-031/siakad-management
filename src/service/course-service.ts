@@ -1,4 +1,4 @@
-import { Course } from "@prisma/client";
+import { Course, Semester } from "@prisma/client";
 import { prismaClient } from "../app/database";
 import { CourseRequest, CourseResponse, CourseUpdate, toCourseResponse } from "../model/course-model";
 import { Validation } from "../validation/validation";
@@ -10,7 +10,11 @@ export class CourseService {
 
         const response = await prismaClient.course.findMany({
             include: {
-                teacher: true,
+                teacher: {
+                    include: {
+                        user: true
+                    }
+                },
                 enrollments: true
             }
         });
@@ -27,9 +31,11 @@ export class CourseService {
             data: {
                 name: createRequest.name!,
                 code: createRequest.code!,
-                teacherId: createRequest.teacherId!
+                teacherId: createRequest.teacherId!,
+                semester: createRequest.semester!,
+                sks: createRequest.sks!,
             }
-        });
+        })
 
         return toCourseResponse(course);
 
@@ -61,6 +67,20 @@ export class CourseService {
                 teacherId: updateRequest.teacherId
             };
         };
+
+        if (updateRequest.semester) {
+            updatedRequest = {
+                ...updatedRequest,
+                semester: updateRequest.semester
+            }
+        }
+
+        if (updateRequest.sks) {
+            updatedRequest = {
+                ...updatedRequest,
+                sks: updateRequest.sks
+            }
+        }
 
         const response = await prismaClient.course.update({
             where: {

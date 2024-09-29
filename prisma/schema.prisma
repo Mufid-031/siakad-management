@@ -57,6 +57,8 @@ model Course {
   teacher     Teacher       @relation(fields: [teacherId], references: [id])
   teacherId   Int
   enrollments Enrollment[]
+  semester    Semester
+  sks         Int
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
@@ -85,4 +87,15 @@ enum Role {
   ADMIN
   STUDENT
   TEACHER
+}
+
+enum Semester {
+  semester_1
+  semester_2
+  semester_3
+  semester_4
+  semester_5
+  semester_6
+  semester_7
+  semester_8
 }

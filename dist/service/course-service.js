@@ -19,7 +19,11 @@ class CourseService {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield database_1.prismaClient.course.findMany({
                 include: {
-                    teacher: true,
+                    teacher: {
+                        include: {
+                            user: true
+                        }
+                    },
                     enrollments: true
                 }
             });
@@ -34,7 +38,9 @@ class CourseService {
                 data: {
                     name: createRequest.name,
                     code: createRequest.code,
-                    teacherId: createRequest.teacherId
+                    teacherId: createRequest.teacherId,
+                    semester: createRequest.semester,
+                    sks: createRequest.sks,
                 }
             });
             return (0, course_model_1.toCourseResponse)(course);
@@ -57,6 +63,12 @@ class CourseService {
                 updatedRequest = Object.assign(Object.assign({}, updatedRequest), { teacherId: updateRequest.teacherId });
             }
             ;
+            if (updateRequest.semester) {
+                updatedRequest = Object.assign(Object.assign({}, updatedRequest), { semester: updateRequest.semester });
+            }
+            if (updateRequest.sks) {
+                updatedRequest = Object.assign(Object.assign({}, updatedRequest), { sks: updateRequest.sks });
+            }
             const response = yield database_1.prismaClient.course.update({
                 where: {
                     id: updateRequest.id

@@ -1,11 +1,13 @@
-import { z, ZodType } from "zod";
+import { number, z, ZodType } from "zod";
 
 export class CourseValidate {
 
     static readonly CREATE: ZodType = z.object({
         name: z.string().min(1).max(100),
         code: z.string().min(1).max(100),
-        teacherId: z.number().min(1)
+        teacherId: z.number().min(1),
+        semester: z.string().min(1),
+        sks: z.number().min(1),
     });
 
     static readonly UPDATE: ZodType = z.object({
@@ -13,6 +15,8 @@ export class CourseValidate {
         name: z.string().min(1).max(100).optional(),
         code: z.string().min(1).max(100).optional(),
         teacherId: z.number().min(1).optional(),
+        semester: z.string().min(1).optional(),
+        sks: z.number().min(1).optional(),
     });
 
     static readonly DELETE: ZodType = z.object({
